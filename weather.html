@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+</head>
+<body>
+    <div id="weather-widget">
+        <h1>Current Weather</h1>
+        <input type="text" id="name" placeholder="Enter city name" />
+        <button onclick="fetchWeather()">Get Weather</button>
+        <div class="container1" style="display:none;">
+            <h2 id="cityname"></h2>
+            <p>Temperature: <span id="temp"></span> °C</p>
+            <p>Pressure: <span id="pressure"></span> hPa</p>
+            <p>Humidity: <span id="humidity"></span> %</p>
+    </div>
+    <script>
+        async function fetchWeather() {
+            
+                let cityName=document.getElementById('name').value;
+   
+    let url=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=1801d39372c536d4a4f266105a47e49c`);
+   
+    let data=await url.json();
+    
+    console.log(data);
+    
+    document.querySelector(".container1").style.display = "block";
+    document.getElementById("cityname").innerHTML=data.name;
+    document.getElementById("temp").innerHTML=data.main.temp;
+    document.getElementById("pressure").innerHTML=data.main.pressure;
+    document.getElementById("humidity").innerHTML=data.main.humidity;
+            
+        }
+
+        fetchWeather();
+    </script>
+
+</body>
+</html>
